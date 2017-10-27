@@ -6,8 +6,8 @@ public class Mine {
 
 	public static void main(String[] args) throws Exception {
 
-		String studentID = "12345678d"; // Change it to your student ID
-		int noOfLeadingZeros = 1; // Increment it to find a hash of more leading zeros
+		String studentID = "17047558d"; // Change it to your student ID
+		int noOfLeadingZeros = 4; // Increment it to find a hash of more leading zeros
 		String leadingZeros = String.join("", Collections.nCopies(noOfLeadingZeros, "0"));
 		String h; // the hash value
 		SecureRandom random = new SecureRandom();
@@ -17,11 +17,16 @@ public class Mine {
 		/*
 		 * Implement your code here
 		 */
-		h = "initial hash"; 	// Dummy Initialization
-		currentTime = 1506153217182L;
-		nonce = -1988897618;
-
-		h = hash(studentID, currentTime, nonce);
+		h = "initial hash"; 		// Dummy Initialization
+		nonce = 0;					// Dummy Initialization
+		
+		// Try to hash until h starts with some no. of 0s
+		currentTime = startTime;	// Save the time when start hashing
+		while ( !h.startsWith(leadingZeros) ) {
+			// Generate a new nonce for new hash
+			nonce = random.nextInt();
+			h = hash(studentID, startTime, nonce);
+		}	
 		/**
 		 * Implement your code end
 		 */
