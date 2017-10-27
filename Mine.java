@@ -17,9 +17,11 @@ public class Mine {
 		/*
 		 * Implement your code here
 		 */
-		h = "initial hash";
-		currentTime = 0;
-		nonce = 0;
+		h = "initial hash"; 	// Dummy Initialization
+		currentTime = 1506153217182L;
+		nonce = -1988897618;
+
+		h = hash(studentID, currentTime, nonce);
 		/**
 		 * Implement your code end
 		 */
@@ -37,6 +39,23 @@ public class Mine {
 		/*
 		 * Implement your code here
 		 */
+
+		// Concat of (1),(2),(3) as the input of SHA-1
+		String input = studentID + currentTime + nonce;
+
+		// Hash function (in: input, out: sb)
+		MessageDigest mDigest = MessageDigest.getInstance("SHA1");
+        byte[] result = mDigest.digest(input.getBytes());
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+		}
+		
+		// Convert sb back to string for return
+		h = sb.toString();
+		 /**
+		  * Implement your code end
+		  */
 		return h;
 
 	}
